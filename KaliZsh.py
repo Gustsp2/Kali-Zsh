@@ -100,7 +100,7 @@ print("")
 
 
 # Installing zsh, zsh-syntax-highlighting, zsh-autosuggestions
-command2 = "sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions python3 python3-pip && pip install colorama --break-system-packages"
+command2 = "sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions"
 print(INFO + "We will install all dependencies")
 message("Installing dependencies", status=LOADING)
 success = run_command(command2)
