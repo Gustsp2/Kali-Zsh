@@ -1,0 +1,1 @@
+Before running this script, remember that it will replace all .zshrc files located in the users' home directories and root directory with a new file with the default Kali Linux settings. If you have a custom file that you don't want to overwrite, make a backup of it just in case.
