@@ -2,6 +2,7 @@ import subprocess
 import os
 from colorama import Fore, Style # type: ignore
 import sys
+import pwd
 
 #Messagens costumizadas
 AVISO = Fore.LIGHTYELLOW_EX + "[Warning] " + Style.RESET_ALL
@@ -82,34 +83,61 @@ def run_command(command, check=True, cwd=None):
 
 #Atualizando sistema
 command = "sudo apt update -y && sudo apt full-upgrade -y"
-print("")
 print(INFORMATIVO + "Iremos executar 'sudo apt update -y && sudo apt full-upgrade -y' para ter certeza que o sistema está atualizado para instalar as dependências")
-message("Executando 'sudo apt update -y && sudo apt full-upgrade -y'", status=CARREGANDO)
+message("Atualizando sistema", status=CARREGANDO)
 success = run_command(command)
 if success:
-    message("Comando executado com sucesso", status=TERMINO)
+    message("Sistema atualizado com sucesso", status=TERMINO)
 else:
-    message("Houve um erro ao executar o comando", status=FALHA)
+    message("Houve um erro ao atualizar o sistema", status=FALHA)
     exit(1)
+print("")
+print("")
 
 #Instalando zsh, zsh-syntax-highlighting, zsh-autosuggestions
-command2 = "sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions"
-print("")
-print(INFORMATIVO + "Iremos instalar o zsh e baixar os plugins zsh-syntax-highlighting e zsh-autosuggestions")
-message("Instalando zsh e configurando os plugins", status=CARREGANDO)
+command2 = "sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions python3 python3-pip && pip install colorama --break-system-packages"
+print(INFORMATIVO + "Iremos instalar todas as dependências")
+message("Instalando dependências", status=CARREGANDO)
 success = run_command(command2)
 if success:
-    message("Comando executado com sucesso", status=TERMINO)
+    message("Dependências instaladas com sucesso", status=TERMINO)
 else:
-    message("Houve um erro ao executar o comando", status=FALHA)
+    message("Houve um erro ao instalar as dependências", status=FALHA)
     exit(1)
+print("")
+print("")
+
+#Mover arquivo .zshrc para todos os diretorios home de usuario
+command3 = "cp .zshrc /root/ && cp .zshrc /home/*/"
+print(INFORMATIVO + "Copiando arquivo '.zshrc' para os homes de usuário")
+message("Covendo .zshrc para diretórios home do usuário", status=CARREGANDO)
+success = run_command(command3)
+if success:
+    message("Copiados com sucesso", status=TERMINO)
+else:
+    message("Houve um erro ao copiar para os diretórios", status=FALHA)
+    exit(1)
+print("")
+print("")
+
+#Mover arquivo .zshrc para diretorio home de usuario
+command4 = "rm .zshrc"
+print(INFORMATIVO + "Apagando cópia original do arquivo")
+message("Apagando", status=CARREGANDO)
+success = run_command(command4)
+if success:
+    message("Apagado com sucesso", status=TERMINO)
+else:
+    message("Houve um erro ao apagar o arquivo", status=FALHA)
+    exit(1)
+print("")
+print("")
 
 # Alterar o shell padrão para Zsh
-print("")
 print(INFORMATIVO + "Alterando o shell padrão para Zsh")
-command4 = "chsh -s $(which zsh)"
+command5 = "chsh -s $(which zsh)"
 message("Executando alteração do shell", status=CARREGANDO)
-success = run_command(command4)
+success = run_command(command5)
 if success:
     message("Comando executado com sucesso", status=TERMINO)
 else:
@@ -119,6 +147,4 @@ else:
 print("")
 print("")
 print(INFORMATIVO + "Execute 'zsh && source ~/.zshrc' para carregar o zsh costumizado")
-
-print("")
 print(AVISO + "É recomendado reiniciar o sistema para ter certeza de que todas as configurações foram alteradas com sucesso")
