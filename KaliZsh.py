@@ -4,7 +4,7 @@ from colorama import Fore, Style # type: ignore
 import sys
 import pwd
 
-#Messagens costumizadas
+# Custom messages
 WARNING = Fore.LIGHTYELLOW_EX + "[Warning] " + Style.RESET_ALL
 LOADING = Fore.LIGHTYELLOW_EX + "[Loading] " + Style.RESET_ALL
 ERROR = Fore.LIGHTRED_EX + "[Error] " + Style.RESET_ALL
