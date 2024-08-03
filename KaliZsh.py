@@ -117,6 +117,7 @@ else:
     exit(1)
 
 print("")
+print("")
 print(INFORMATIVO + "Execute 'zsh && source ~/.zshrc' para carregar o zsh costumizado")
 
 print("")
