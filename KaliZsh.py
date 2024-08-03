@@ -2,7 +2,7 @@ import subprocess
 import os
 from colorama import Fore, Style # type: ignore
 import sys
-import pwd
+
 
 # Custom messages
 WARNING = Fore.LIGHTYELLOW_EX + "[Warning] " + Style.RESET_ALL
